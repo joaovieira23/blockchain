@@ -14,6 +14,10 @@ class Block {
                 hash = ${this.hash.substring(0,10)}
                 data = ${this.data}`;
     }
+
+    static genesis() {
+        return new this('Genesis time', '----------', 'f4a54f8afbdgs54', []);
+    }
 }
 
 module.exports = Block;
