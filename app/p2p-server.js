@@ -7,7 +7,7 @@ class P2pServer {
     constructor(blockchain) {
         this.blockchain = blockchain;
         this.socket = [];
-    }
+    };
 
     listen() {
         const server = new Websocket.Server({ port: P2P_PORT });
@@ -30,7 +30,17 @@ class P2pServer {
     connectSocket(socket) {
         this.socket.push(socket);
         console.log('Socket connected');
+
+        this.messageHandler(socket);
+        socket.send(JSON.stringify(this.blockchain.chain));
     };
+
+    messageHandler(socket) {
+        socket.on('message', message => {
+            const data = JSON.parse(message);
+            console.log('data', data);
+        })
+    }
 };
 
 module.exports = P2pServer;
